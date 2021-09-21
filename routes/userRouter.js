@@ -22,9 +22,7 @@ Send a 404 error if User is not found
 return a json file consisting of the username and its messages
 
 //SAMPLE
-{
-    "name":"Shivam"
-}
+http://localhost:3000/user?name=Shivam
 
 */
 .get((req,res,next)=>
@@ -68,7 +66,7 @@ return a json file consisting of the username and its messages
 //SAMPLE
 {
     "name":"Shivam",
-    "message""This is my 1st message"
+    "message":"This is my 1st message"
 }
 
 */
