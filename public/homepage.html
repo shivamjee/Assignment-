@@ -1,0 +1,125 @@
+<!Doctype Html>  
+<Html>     
+<Head>      
+	<Title>HomePage</Title>  
+	<style>
+        #container {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        }
+        #leftThing {
+        width: 50%;
+        border-style: solid;
+        }
+        #rightThing {
+        width: 50%;
+        border-style: solid;
+        }
+		.searchbox {  
+		float: none;  
+        width: 50%;
+		}  
+		input[type=text] {  
+		padding: 6px;  
+		margin-top: 8px;  
+		font-size: 17px;  
+		border: 1px solid #ccc; 
+		width: 30%; 
+		}  
+		.searchbox button {  
+		padding: 8px;  
+		margin-top: 10px;  
+		margin-left: 10px;  
+		background: orange;  
+		font-size: 15px;  
+		border: none;  
+		cursor: pointer;  
+		}  
+		.searchbox button:hover {  
+		background: blue;  
+		} 
+	</style>   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function getfunc() 
+        {
+            $.ajax({
+                url: '/user',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: 'name='+ $("#getUser").val(),
+                success: function( data, textStatus, jQxhr ){
+                    $('#json').html( JSON.stringify( data,undefined,4 ) );
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    alert(jqXhr.responseText)
+                }
+            });
+        }
+        $(document).ready(function(){
+            $("#btn1").click(getfunc)
+        });
+    </script>
+    <script type="text/javascript">
+        function postfunc() 
+        {
+            $.ajax({
+                url: '/user',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({"name": $("#postUser").val(),"message": $("#postMessage").val()}),
+                success: function( data, textStatus, jQxhr ){
+                    $('#json').html( JSON.stringify(data,undefined,4) );
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    alert(jqXhr.responseText)
+                }
+            });
+        }
+        $(document).ready(function(){
+            $("#btn2").click(postfunc)
+        });
+    </script>
+</Head>  
+<Body> 
+    <center><b><h1>Assignment</h1></b>
+    <p> The perfect place to store your messages</p></center>
+    <br>
+    <div id="container">
+	<div class="searchbox" id="leftThing">  
+        <center>
+        <b><h2>Retrieve Messages</h2></b><hr>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id = "getUser">
+            <br>
+            <button type="button" id ="btn1">Submit</button>
+            </form>
+        </center>
+
+		<br><hr>
+
+
+
+		<center><b><h2>Insert Message</h2></b><br>
+		<form>
+		  <label for="name">Name:</label>
+		  <input type="text" id ="postUser">
+            <p> </p>
+		  <label for="message"> Message:</label>
+		  <input type="text" id = "postMessage"><br><br>
+
+		  <button type="button" id ="btn2">Submit</button>
+		</form></center>
+        <br>
+	</div>
+    <div id="rightThing">
+        <center><b><h2>OUTPUT</h2></b></center><hr>
+        <b><pre id="json"></pre></b>
+    </div>
+    </div>
+
+</Body>  
+</Html> 
